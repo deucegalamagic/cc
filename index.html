@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Magic Trick Generator</title>
   <style>
     body {
@@ -9,7 +9,7 @@
       background: #111;
       color: #fff;
       padding: 50px 20px;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
@@ -29,7 +29,7 @@
 
     .label {
       font-weight: bold;
-      width: 130px;
+      width: 150px;
       flex-shrink: 0;
       text-align: left;
     }
@@ -55,6 +55,52 @@
       background-color: #e91e63;
     }
   </style>
+  <script defer>
+    const objects = [
+      "bottle", "top hat", "pencil", "glove", "tissue", "ring box", "gaff coin", "belt", "eraser", "keychain",
+      "paper", "napkin", "chalkboard", "phone", "stick", "coin", "cork", "scarf", "double card", "plate",
+      "card box", "notebook", "string", "mirror", "knife", "chain", "paper clip", "lighter", "magnet", "button",
+      "rope", "headphones", "needle", "chop cup", "bottle cap", "mirror card", "tote bag", "safety pin",
+      "eyeglasses", "thread spool", "credit card", "chalk", "fork", "mirror glass", "bandana", "candle",
+      "toothpick", "golf ball", "card stand", "book", "black cloth", "pen", "tea bag", "ping pong ball",
+      "coin shell", "magazine", "dice cup", "silk", "ziploc bag", "receipt", "watch", "comb", "sharpie",
+      "wallet", "dice", "glass", "flash paper", "sticker", "clipboard", "envelope", "sunglasses", "matchbox",
+      "torn card", "battery", "post-it note", "key", "rubber band", "ring", "billet", "business card",
+      "sponge ball", "padlock", "shoelace", "playing cards", "wand", "USB stick", "straw", "coin purse",
+      "thumb tip", "highlighter", "balloon", "marker", "deck box", "spoon", "cup", "egg"
+    ];
+
+    const methods = [
+      "gaff coin", "utility switch", "coin roll", "shim shell", "glue dot", "thread reel", "short card",
+      "marked deck", "flap card", "black art", "stooge", "PK ring", "bottom deal", "trapdoor", "invisible deck",
+      "linked rings", "cups and balls", "stripper deck", "lap", "pull", "topit", "coin across",
+      "magnetic ring", "card warp", "matrix", "top change", "billet switch", "pass", "Z wallet",
+      "false shuffle", "extra method 100", "false cut", "ditch", "corner short", "center tear", "change bag",
+      "classic force", "extra method 99", "magnetic coin", "pre-show", "PK touch", "palm", "nested boxes",
+      "switch", "steal", "coin bend", "flash paper", "double stick tape", "levitation rig", "folded card",
+      "svengali deck", "sleight of hand", "slippery shell", "muscle pass", "elastic thread", "egg bag",
+      "peek", "nail writer", "miser’s dream", "smoke device", "vanish", "index", "magnet", "riffle force",
+      "bill switch", "mirror box", "production box", "one-ahead", "double facer", "coin shell", "bottom palm",
+      "mirage deck", "holdout", "retention vanish", "sound gimmick"
+    ];
+
+    const effects = [
+      "Vanish", "Production", "Transposition", "Transformation", "Penetration", "Restoration", "Levitation",
+      "Prediction", "Animation", "Attraction", "Sympathetic Reaction", "Invulnerability",
+      "Physical Anomaly", "Spectator Failure", "Control", "Identification", "Thought Reading",
+      "Thought Transmission", "ESP"
+    ];
+
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function generateTrick() {
+      document.getElementById("object").textContent = randomItem(objects);
+      document.getElementById("method").textContent = randomItem(methods);
+      document.getElementById("effect").textContent = randomItem(effects);
+    }
+  </script>
 </head>
 <body>
   <h1>🎩 Magic Trick Generator</h1>
@@ -70,22 +116,5 @@
   </div>
 
   <button onclick="generateTrick()">✨ Spin for a Trick</button>
-
-  <script>
-    const objects = [
-      "Hat", "Keys", "Cards", "Coins", "Silks", "Paper", "Pen", "Napkin", "Rubber Band", "Ring",
-      "Watch", "Bill", "Envelope", "Business Card", "Phone", "Ball", "Rope", "Toothpick", "Spoon", "Bottle Cap",
-      "Cigarette", "Matchbox", "Dice", "Wallet", "Glasses", "Straw", "Marker", "Cup", "Credit Card", "Newspaper",
-      "Book", "Notebook", "Pencil", "Chapstick", "Keychain", "Tissue", "Sticker", "Stone", "Playing Card Box", "Deck of Cards"
-    ];
-
-    const methods = [
-      "Sleight of Hand", "Thread", "Wax", "Gaff Card", "Gaff Coin", "A Pull", "Double Stick Tape", "Subterfuge", "Short Card", "Black Art",
-      "Magnet", "Shell", "Topit", "Sleeving", "Palming", "False Transfer", "Swami Gimmick", "Invisible Deck", "Marked Deck", "Flap Card",
-      "Mirror", "Trap Door", "One-Way Force Deck", "Elastic Thread", "Thumb Tip", "ITR", "Rough & Smooth", "Stooge", "Forcing Bag", "PK Ring"
-    ];
-
-    const effects = [
-      "Transposition", "Translocation", "Vanish", "Disappearance", "Production", "Reappearance", "Transformation", "Levitation", "Penetration", "Restoration",
-      "Prediction", "Color Change", "Teleportation", "Switch", "Duplication", "Object to Impossible Location", "Time Travel Illusion", "Mind Reading",
-      "Mentalism Reveal", "Spectator as Magician", "Card to Wallet", "Bill in Lemon", "Torn an
+</body>
+</html>
