@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Magic Trick Generator</title>
+  <meta charset="UTF-8">
+  <title>The Magician's Spark</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
+      background-color: #111;
       color: #fff;
+      margin: 0;
       padding: 50px 20px;
-      max-width: 800px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      text-align: left;
     }
 
     h1 {
       font-size: 2em;
-      margin-bottom: 20px;
-      text-align: left;
+      margin-bottom: 0.3em;
+    }
+
+    .byline {
+      font-size: 0.8em;
+      font-weight: normal;
+      margin-bottom: 1.2em;
+    }
+
+    p.description {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 30px;
     }
 
     .category {
@@ -31,11 +49,9 @@
       font-weight: bold;
       width: 150px;
       flex-shrink: 0;
-      text-align: left;
     }
 
     .value {
-      text-align: left;
       flex-grow: 1;
     }
 
@@ -48,40 +64,45 @@
       border-radius: 8px;
       cursor: pointer;
       margin-top: 30px;
-      text-align: left;
     }
 
     button:hover {
       background-color: #e91e63;
     }
+
+    .timer {
+      font-size: 1.2em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
   </style>
   <script defer>
     const objects = [
-      "bottle", "top hat", "pencil", "glove", "tissue", "ring box", "gaff coin", "belt", "eraser", "keychain",
-      "paper", "napkin", "chalkboard", "phone", "stick", "coin", "cork", "scarf", "double card", "plate",
-      "card box", "notebook", "string", "mirror", "knife", "chain", "paper clip", "lighter", "magnet", "button",
-      "rope", "headphones", "needle", "chop cup", "bottle cap", "mirror card", "tote bag", "safety pin",
-      "eyeglasses", "thread spool", "credit card", "chalk", "fork", "mirror glass", "bandana", "candle",
-      "toothpick", "golf ball", "card stand", "book", "black cloth", "pen", "tea bag", "ping pong ball",
-      "coin shell", "magazine", "dice cup", "silk", "ziploc bag", "receipt", "watch", "comb", "sharpie",
-      "wallet", "dice", "glass", "flash paper", "sticker", "clipboard", "envelope", "sunglasses", "matchbox",
-      "torn card", "battery", "post-it note", "key", "rubber band", "ring", "billet", "business card",
-      "sponge ball", "padlock", "shoelace", "playing cards", "wand", "USB stick", "straw", "coin purse",
-      "thumb tip", "highlighter", "balloon", "marker", "deck box", "spoon", "cup", "egg"
+      "Bottle", "Top Hat", "Pencil", "Glove", "Tissue", "Ring Box", "Gaff Coin", "Belt", "Eraser", "Keychain",
+      "Paper", "Napkin", "Chalkboard", "Phone", "Stick", "Coin", "Cork", "Scarf", "Double Card", "Plate",
+      "Card Box", "Notebook", "String", "Mirror", "Knife", "Chain", "Paper Clip", "Lighter", "Magnet", "Button",
+      "Rope", "Headphones", "Needle", "Chop Cup", "Bottle Cap", "Mirror Card", "Tote Bag", "Safety Pin",
+      "Eyeglasses", "Thread Spool", "Credit Card", "Chalk", "Fork", "Mirror Glass", "Bandana", "Candle",
+      "Toothpick", "Golf Ball", "Card Stand", "Book", "Black Cloth", "Pen", "Tea Bag", "Ping Pong Ball",
+      "Coin Shell", "Magazine", "Dice Cup", "Silk", "Ziploc Bag", "Receipt", "Watch", "Comb", "Sharpie",
+      "Wallet", "Dice", "Glass", "Flash Paper", "Sticker", "Clipboard", "Envelope", "Sunglasses", "Matchbox",
+      "Torn Card", "Battery", "Post-It Note", "Key", "Rubber Band", "Ring", "Billet", "Business Card",
+      "Sponge Ball", "Padlock", "Shoelace", "Playing Cards", "Wand", "USB Stick", "Straw", "Coin Purse",
+      "Thumb Tip", "Highlighter", "Balloon", "Marker", "Deck Box", "Spoon", "Cup", "Egg"
     ];
 
     const methods = [
-      "gaff coin", "utility switch", "coin roll", "shim shell", "glue dot", "thread reel", "short card",
-      "marked deck", "flap card", "black art", "stooge", "PK ring", "bottom deal", "trapdoor", "invisible deck",
-      "linked rings", "cups and balls", "stripper deck", "lap", "pull", "topit", "coin across",
-      "magnetic ring", "card warp", "matrix", "top change", "billet switch", "pass", "Z wallet",
-      "false shuffle", "extra method 100", "false cut", "ditch", "corner short", "center tear", "change bag",
-      "classic force", "extra method 99", "magnetic coin", "pre-show", "PK touch", "palm", "nested boxes",
-      "switch", "steal", "coin bend", "flash paper", "double stick tape", "levitation rig", "folded card",
-      "svengali deck", "sleight of hand", "slippery shell", "muscle pass", "elastic thread", "egg bag",
-      "peek", "nail writer", "miser’s dream", "smoke device", "vanish", "index", "magnet", "riffle force",
-      "bill switch", "mirror box", "production box", "one-ahead", "double facer", "coin shell", "bottom palm",
-      "mirage deck", "holdout", "retention vanish", "sound gimmick"
+      "Gaff Coin", "Utility Switch", "Coin Roll", "Shim Shell", "Glue Dot", "Thread Reel", "Short Card",
+      "Marked Deck", "Flap Card", "Black Art", "Stooge", "PK Ring", "Bottom Deal", "Trapdoor", "Invisible Deck",
+      "Linked Rings", "Cups And Balls", "Stripper Deck", "Lap", "Pull", "Topit", "Coin Across",
+      "Magnetic Ring", "Card Warp", "Matrix", "Top Change", "Billet Switch", "Pass", "Z Wallet",
+      "False Shuffle", "Extra Method 100", "False Cut", "Ditch", "Corner Short", "Center Tear", "Change Bag",
+      "Classic Force", "Extra Method 99", "Magnetic Coin", "Pre-Show", "PK Touch", "Palm", "Nested Boxes",
+      "Switch", "Steal", "Coin Bend", "Flash Paper", "Double Stick Tape", "Levitation Rig", "Folded Card",
+      "Svengali Deck", "Sleight Of Hand", "Slippery Shell", "Muscle Pass", "Elastic Thread", "Egg Bag",
+      "Peek", "Nail Writer", "Miser’s Dream", "Smoke Device", "Vanish", "Index", "Magnet", "Riffle Force",
+      "Bill Switch", "Mirror Box", "Production Box", "One-Ahead", "Double Facer", "Coin Shell", "Bottom Palm",
+      "Mirage Deck", "Holdout", "Retention Vanish", "Sound Gimmick"
     ];
 
     const effects = [
@@ -91,6 +112,26 @@
       "Thought Transmission", "ESP"
     ];
 
+    let timerInterval;
+
+    function startTimer(duration) {
+      let timer = duration;
+      const timerDisplay = document.getElementById("timer");
+
+      clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (--timer < 0) {
+          clearInterval(timerInterval);
+          timerDisplay.textContent = "Time's up!";
+        }
+      }, 1000);
+    }
+
     function randomItem(array) {
       return array[Math.floor(Math.random() * array.length)];
     }
@@ -99,22 +140,30 @@
       document.getElementById("object").textContent = randomItem(objects);
       document.getElementById("method").textContent = randomItem(methods);
       document.getElementById("effect").textContent = randomItem(effects);
+      startTimer(120);
     }
   </script>
 </head>
 <body>
-  <h1>🎩 Magic Trick Generator</h1>
+  <div class="container">
+    <h1>The Magician’s Spark <span class="byline">by Deuce Gala</span></h1>
+    <p class="description">
+      You don’t need perfect ideas, just momentum! Hit the button below to get a random object, method, and effect,
+      then let your brain play! You'll have 2 minutes to capture whatever comes out.
+    </p>
 
-  <div class="category">
-    <span class="label">Object:</span> <span class="value" id="object">—</span>
-  </div>
-  <div class="category">
-    <span class="label">Method:</span> <span class="value" id="method">—</span>
-  </div>
-  <div class="category">
-    <span class="label">Effect:</span> <span class="value" id="effect">—</span>
-  </div>
+    <div class="category">
+      <span class="label">Object:</span> <span class="value" id="object">—</span>
+    </div>
+    <div class="category">
+      <span class="label">Method:</span> <span class="value" id="method">—</span>
+    </div>
+    <div class="category">
+      <span class="label">Effect:</span> <span class="value" id="effect">—</span>
+    </div>
 
-  <button onclick="generateTrick()">✨ Spin for a Trick</button>
+    <button onclick="generateTrick()">Click to Begin</button>
+    <div class="timer" id="timer"></div>
+  </div>
 </body>
 </html>
