@@ -53,6 +53,7 @@
 
     .value {
       flex-grow: 1;
+      min-height: 1.5em;
     }
 
     button {
@@ -77,46 +78,17 @@
     }
   </style>
   <script defer>
-    const objects = [
-      "Bottle", "Top Hat", "Pencil", "Glove", "Tissue", "Ring Box", "Gaff Coin", "Belt", "Eraser", "Keychain",
-      "Paper", "Napkin", "Chalkboard", "Phone", "Stick", "Coin", "Cork", "Scarf", "Double Card", "Plate",
-      "Card Box", "Notebook", "String", "Mirror", "Knife", "Chain", "Paper Clip", "Lighter", "Magnet", "Button",
-      "Rope", "Headphones", "Needle", "Chop Cup", "Bottle Cap", "Mirror Card", "Tote Bag", "Safety Pin",
-      "Eyeglasses", "Thread Spool", "Credit Card", "Chalk", "Fork", "Mirror Glass", "Bandana", "Candle",
-      "Toothpick", "Golf Ball", "Card Stand", "Book", "Black Cloth", "Pen", "Tea Bag", "Ping Pong Ball",
-      "Coin Shell", "Magazine", "Dice Cup", "Silk", "Ziploc Bag", "Receipt", "Watch", "Comb", "Sharpie",
-      "Wallet", "Dice", "Glass", "Flash Paper", "Sticker", "Clipboard", "Envelope", "Sunglasses", "Matchbox",
-      "Torn Card", "Battery", "Post-It Note", "Key", "Rubber Band", "Ring", "Billet", "Business Card",
-      "Sponge Ball", "Padlock", "Shoelace", "Playing Cards", "Wand", "USB Stick", "Straw", "Coin Purse",
-      "Thumb Tip", "Highlighter", "Balloon", "Marker", "Deck Box", "Spoon", "Cup", "Egg", "Banana", "Apple", "Puppy", "Hair"
-    ];
+    const objects = ["Bottle", "Top Hat", "Pencil", "Glove", "Tissue", "Ring Box", "Gaff Coin", "Belt", "Eraser", "Keychain", "Paper", "Napkin", "Chalkboard", "Phone", "Stick", "Coin", "Cork", "Scarf", "Double Card", "Plate", "Card Box", "Notebook", "String", "Mirror", "Knife", "Chain", "Paper Clip", "Lighter", "Magnet", "Button", "Rope", "Headphones", "Needle", "Chop Cup", "Bottle Cap", "Mirror Card", "Tote Bag", "Safety Pin", "Eyeglasses", "Thread Spool", "Credit Card", "Chalk", "Fork", "Mirror Glass", "Bandana", "Candle", "Toothpick", "Golf Ball", "Card Stand", "Book", "Black Cloth", "Pen", "Tea Bag", "Ping Pong Ball", "Coin Shell", "Magazine", "Dice Cup", "Silk", "Ziploc Bag", "Receipt", "Watch", "Comb", "Sharpie", "Wallet", "Dice", "Glass", "Flash Paper", "Sticker", "Clipboard", "Envelope", "Sunglasses", "Matchbox", "Torn Card", "Battery", "Post-It Note", "Key", "Rubber Band", "Ring", "Billet", "Business Card", "Sponge Ball", "Padlock", "Shoelace", "Playing Cards", "Wand", "USB Stick", "Straw", "Coin Purse", "Thumb Tip", "Highlighter", "Balloon", "Marker", "Deck Box", "Spoon", "Cup", "Egg"];
 
-    const methods = [
-      "Gaff Coin", "Utility Switch", "Coin Roll", "Shim Shell", "Glue Dot", "Thread Reel", "Short Card",
-      "Marked Deck", "Flap Card", "Black Art", "Stooge", "PK Ring", "Bottom Deal", "Trapdoor", "Invisible Deck", "Stripper Deck", "Lap", "Pull", "Topit", "Coin Across",
-      "Magnetic Ring", "Card Warp", "Matrix", "Top Change", "Billet Switch", "Pass", "Z Wallet",
-      "False Shuffle", "False Cut", "Ditch", "Corner Short", "Center Tear", "Change Bag",
-      "Classic Force", "Magnetic Coin", "Pre-Show", "PK Touch", "Palm", "Nested Boxes",
-      "Switch", "Steal", "Coin Bend", "Flash Paper", "Double Stick Tape", "Levitation Rig", "Folded Card",
-      "Svengali Deck", "Sleight Of Hand", "Slippery Shell", "Muscle Pass", "Elastic Thread", "Egg Bag",
-      "Peek", "Nail Writer", "Miser’s Dream", "Smoke Device", "Vanish", "Index", "Magnet", "Riffle Force",
-      "Bill Switch", "Mirror Box", "Production Box", "One-Ahead", "Double Facer", "Coin Shell", "Bottom Palm",
-      "Mirage Deck", "Holdout", "Retention Vanish", "Sound Gimmick"
-    ];
+    const methods = ["Gaff Coin", "Utility Switch", "Coin Roll", "Shim Shell", "Glue Dot", "Thread Reel", "Short Card", "Marked Deck", "Flap Card", "Black Art", "Stooge", "PK Ring", "Bottom Deal", "Trapdoor", "Invisible Deck", "Linked Rings", "Cups And Balls", "Stripper Deck", "Lap", "Pull", "Topit", "Coin Across", "Magnetic Ring", "Card Warp", "Matrix", "Top Change", "Billet Switch", "Pass", "Z Wallet", "False Shuffle", "Extra Method 100", "False Cut", "Ditch", "Corner Short", "Center Tear", "Change Bag", "Classic Force", "Extra Method 99", "Magnetic Coin", "Pre-Show", "PK Touch", "Palm", "Nested Boxes", "Switch", "Steal", "Coin Bend", "Flash Paper", "Double Stick Tape", "Levitation Rig", "Folded Card", "Svengali Deck", "Sleight Of Hand", "Slippery Shell", "Muscle Pass", "Elastic Thread", "Egg Bag", "Peek", "Nail Writer", "Miser’s Dream", "Smoke Device", "Vanish", "Index", "Magnet", "Riffle Force", "Bill Switch", "Mirror Box", "Production Box", "One-Ahead", "Double Facer", "Coin Shell", "Bottom Palm", "Mirage Deck", "Holdout", "Retention Vanish", "Sound Gimmick"];
 
-    const effects = [
-      "Vanish", "Production", "Transposition", "Transformation", "Penetration", "Restoration", "Levitation",
-      "Prediction", "Animation", "Attraction", "Sympathetic Reaction", "Invulnerability",
-      "Physical Anomaly", "Spectator Failure", "Control", "Identification", "Thought Reading",
-      "Thought Transmission", "ESP"
-    ];
+    const effects = ["Vanish", "Production", "Transposition", "Transformation", "Penetration", "Restoration", "Levitation", "Prediction", "Animation", "Attraction", "Sympathetic Reaction", "Invulnerability", "Physical Anomaly", "Spectator Failure", "Control", "Identification", "Thought Reading", "Thought Transmission", "ESP"];
 
     let timerInterval;
 
     function startTimer(duration) {
       let timer = duration;
       const timerDisplay = document.getElementById("timer");
-
       clearInterval(timerInterval);
 
       timerInterval = setInterval(() => {
@@ -131,21 +103,31 @@
       }, 1000);
     }
 
-    function randomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
+    function spinAndStop(id, array) {
+      let count = 0;
+      const target = document.getElementById(id);
+      const interval = setInterval(() => {
+        target.textContent = array[Math.floor(Math.random() * array.length)];
+        count++;
+        if (count >= 15) {
+          clearInterval(interval);
+          target.textContent = array[Math.floor(Math.random() * array.length)];
+        }
+      }, 75);
     }
 
     function generateTrick() {
-      document.getElementById("object").textContent = randomItem(objects);
-      document.getElementById("method").textContent = randomItem(methods);
-      document.getElementById("effect").textContent = randomItem(effects);
+      spinAndStop("object", objects);
+      spinAndStop("method", methods);
+      spinAndStop("effect", effects);
       startTimer(120);
     }
   </script>
 </head>
 <body>
   <div class="container">
-    <h1>The Magician’s Spark <span class="byline">by Deuce Gala Magic</span></h1>
+    <h1>The Magician’s Spark</h1>
+    <div class="byline">by Deuce Gala Magic</div>
     <p class="description">
       You don’t need perfect ideas, just momentum! Hit the button below to get a random object, method, and effect,
       then let your brain play! You'll have 2 minutes to capture whatever comes out.
