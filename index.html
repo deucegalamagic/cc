@@ -21,10 +21,71 @@
 
     .category {
       margin: 20px 0;
-      text-align: left;
       font-size: 1.3em;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
     }
 
     .label {
       font-weight: bold;
-      display: inline-block;
+      width: 130px;
+      flex-shrink: 0;
+      text-align: left;
+    }
+
+    .value {
+      text-align: left;
+      flex-grow: 1;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      background-color: #ff4081;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    button:hover {
+      background-color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎩 Magic Trick Generator</h1>
+
+  <div class="category">
+    <span class="label">Object:</span> <span class="value" id="object">—</span>
+  </div>
+  <div class="category">
+    <span class="label">Method:</span> <span class="value" id="method">—</span>
+  </div>
+  <div class="category">
+    <span class="label">Effect:</span> <span class="value" id="effect">—</span>
+  </div>
+
+  <button onclick="generateTrick()">✨ Spin for a Trick</button>
+
+  <script>
+    const objects = [
+      "Hat", "Keys", "Cards", "Coins", "Silks", "Paper", "Pen", "Napkin", "Rubber Band", "Ring",
+      "Watch", "Bill", "Envelope", "Business Card", "Phone", "Ball", "Rope", "Toothpick", "Spoon", "Bottle Cap",
+      "Cigarette", "Matchbox", "Dice", "Wallet", "Glasses", "Straw", "Marker", "Cup", "Credit Card", "Newspaper",
+      "Book", "Notebook", "Pencil", "Chapstick", "Keychain", "Tissue", "Sticker", "Stone", "Playing Card Box", "Deck of Cards"
+    ];
+
+    const methods = [
+      "Sleight of Hand", "Thread", "Wax", "Gaff Card", "Gaff Coin", "A Pull", "Double Stick Tape", "Subterfuge", "Short Card", "Black Art",
+      "Magnet", "Shell", "Topit", "Sleeving", "Palming", "False Transfer", "Swami Gimmick", "Invisible Deck", "Marked Deck", "Flap Card",
+      "Mirror", "Trap Door", "One-Way Force Deck", "Elastic Thread", "Thumb Tip", "ITR", "Rough & Smooth", "Stooge", "Forcing Bag", "PK Ring"
+    ];
+
+    const effects = [
+      "Transposition", "Translocation", "Vanish", "Disappearance", "Production", "Reappearance", "Transformation", "Levitation", "Penetration", "Restoration",
+      "Prediction", "Color Change", "Teleportation", "Switch", "Duplication", "Object to Impossible Location", "Time Travel Illusion", "Mind Reading",
+      "Mentalism Reveal", "Spectator as Magician", "Card to Wallet", "Bill in Lemon", "Torn an
