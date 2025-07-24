@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Magic Trick Generator</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    button { font-size: 20px; padding: 10px 20px; margin-top: 20px; }
-    p { font-size: 24px; }
-  </style>
-</head>
-<body>
-  <h1>Spin Your Magic Trick</h1>
-  <button onclick="generateTrick()">Spin</button>
-  <p><strong>Object:</strong> <span id="object"></span></p>
-  <p><strong>Method:</strong> <span id="method"></span></p>
-  <p><strong>Effect:</strong> <span id="effect"></span></p>
-
-  <script>
-    const objects = ["Hat", "Keys", "Cards", "Coins", "Silks", "Paper"];
-    const methods = ["Sleight of Hand", "Thread", "Wax", "Gaff Card", "Double Stick Tape"];
-    const effects = ["Vanish", "Transformation", "Production", "Reappearance", "Transposition"];
-
-    function randomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 50px 20px;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    function generateTrick() {
-      document.getElementById("object").textContent = randomItem(objects);
-      document.getElementById("method").textContent = randomItem(methods);
-      document.getElementById("effect").textContent = randomItem(effects);
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: left;
     }
-  </script>
-</body>
-</html>
+
+    .category {
+      margin: 20px 0;
+      text-align: left;
+      font-size: 1.3em;
+    }
+
+    .label {
+      font-weight: bold;
+      display: inline-block;
