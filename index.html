@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>The Magician's Spark</title>
   <style>
+    :root {
+      --bg-color: #111;
+      --text-color: #fff;
+      --button-bg: #ff4081;
+      --button-hover: #e91e63;
+    }
+
+    body.light {
+      --bg-color: #fff;
+      --text-color: #000;
+      --button-bg: #6200ea;
+      --button-hover: #3700b3;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       padding: 50px 20px;
+      margin: 0;
       display: flex;
       justify-content: center;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .container {
@@ -28,14 +43,15 @@
     .byline {
       font-size: 1em;
       font-weight: normal;
-      margin-bottom: 1.2em;
       margin-top: 0.2em;
+      margin-bottom: 1.2em;
       display: block;
     }
 
-    p.description {
+    p {
       font-size: 1.1em;
       line-height: 1.6;
+      max-width: 650px;
       margin-bottom: 30px;
     }
 
@@ -51,88 +67,154 @@
       font-weight: bold;
       width: 150px;
       flex-shrink: 0;
+      text-align: left;
     }
 
     .value {
+      text-align: left;
       flex-grow: 1;
-      min-height: 1.5em;
     }
 
     button {
       padding: 12px 24px;
       font-size: 1em;
       border: none;
-      background-color: #ff4081;
+      background-color: var(--button-bg);
       color: white;
       border-radius: 8px;
       cursor: pointer;
       margin-top: 30px;
+      text-align: left;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #e91e63;
+      background-color: var(--button-hover);
     }
 
-    .timer {
+    #timer {
       font-size: 1.2em;
-      margin-top: 20px;
       font-weight: bold;
+      margin-top: 30px;
+    }
+
+    #themeToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 6px 14px;
+      font-size: 0.9em;
+      background-color: transparent;
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    #themeToggle:hover {
+      background-color: var(--text-color);
+      color: var(--bg-color);
     }
   </style>
   <script defer>
-    const objects = ["Bottle", "Top Hat", "Pencil", "Glove", "Tissue", "Ring Box", "Gaff Coin", "Belt", "Eraser", "Keychain", "Paper", "Napkin", "Chalkboard", "Phone", "Stick", "Coin", "Cork", "Scarf", "Double Card", "Plate", "Card Box", "Notebook", "String", "Mirror", "Knife", "Chain", "Paper Clip", "Lighter", "Magnet", "Button", "Rope", "Headphones", "Needle", "Chop Cup", "Bottle Cap", "Mirror Card", "Tote Bag", "Safety Pin", "Eyeglasses", "Thread Spool", "Credit Card", "Chalk", "Fork", "Mirror Glass", "Bandana", "Candle", "Toothpick", "Golf Ball", "Card Stand", "Book", "Black Cloth", "Pen", "Tea Bag", "Ping Pong Ball", "Coin Shell", "Magazine", "Dice Cup", "Silk", "Ziploc Bag", "Receipt", "Watch", "Comb", "Sharpie", "Wallet", "Dice", "Glass", "Flash Paper", "Sticker", "Clipboard", "Envelope", "Sunglasses", "Matchbox", "Torn Card", "Battery", "Post-It Note", "Key", "Rubber Band", "Ring", "Billet", "Business Card", "Sponge Ball", "Padlock", "Shoelace", "Playing Cards", "Wand", "USB Stick", "Straw", "Coin Purse", "Thumb Tip", "Highlighter", "Balloon", "Marker", "Deck Box", "Spoon", "Cup", "Egg"];
+    const objects = [
+      "Bottle", "Top Hat", "Pencil", "Glove", "Tissue", "Ring Box", "Gaff Coin", "Belt", "Eraser", "Keychain",
+      "Paper", "Napkin", "Chalkboard", "Phone", "Stick", "Coin", "Cork", "Scarf", "Double Card", "Plate",
+      "Card Box", "Notebook", "String", "Mirror", "Knife", "Chain", "Paper Clip", "Lighter", "Magnet", "Button",
+      "Rope", "Headphones", "Needle", "Chop Cup", "Bottle Cap", "Mirror Card", "Tote Bag", "Safety Pin",
+      "Eyeglasses", "Thread Spool", "Credit Card", "Chalk", "Fork", "Mirror Glass", "Bandana", "Candle",
+      "Toothpick", "Golf Ball", "Card Stand", "Book", "Black Cloth", "Pen", "Tea Bag", "Ping Pong Ball",
+      "Coin Shell", "Magazine", "Dice Cup", "Silk", "Ziploc Bag", "Receipt", "Watch", "Comb", "Sharpie",
+      "Wallet", "Dice", "Glass", "Flash Paper", "Sticker", "Clipboard", "Envelope", "Sunglasses", "Matchbox",
+      "Torn Card", "Battery", "Post-It Note", "Key", "Rubber Band", "Ring", "Billet", "Business Card",
+      "Sponge Ball", "Padlock", "Shoelace", "Playing Cards", "Wand", "USB Stick", "Straw", "Coin Purse",
+      "Thumb Tip", "Highlighter", "Balloon", "Marker", "Deck Box", "Spoon", "Cup", "Egg"
+    ];
 
-    const methods = ["Gaff Coin", "Utility Switch", "Coin Roll", "Shim Shell", "Glue Dot", "Thread Reel", "Short Card", "Marked Deck", "Flap Card", "Black Art", "Stooge", "PK Ring", "Bottom Deal", "Trapdoor", "Invisible Deck", "Linked Rings", "Cups And Balls", "Stripper Deck", "Lap", "Pull", "Topit", "Coin Across", "Magnetic Ring", "Card Warp", "Matrix", "Top Change", "Billet Switch", "Pass", "Z Wallet", "False Shuffle", "Extra Method 100", "False Cut", "Ditch", "Corner Short", "Center Tear", "Change Bag", "Classic Force", "Extra Method 99", "Magnetic Coin", "Pre-Show", "PK Touch", "Palm", "Nested Boxes", "Switch", "Steal", "Coin Bend", "Flash Paper", "Double Stick Tape", "Levitation Rig", "Folded Card", "Svengali Deck", "Sleight Of Hand", "Slippery Shell", "Muscle Pass", "Elastic Thread", "Egg Bag", "Peek", "Nail Writer", "Miser’s Dream", "Smoke Device", "Vanish", "Index", "Magnet", "Riffle Force", "Bill Switch", "Mirror Box", "Production Box", "One-Ahead", "Double Facer", "Coin Shell", "Bottom Palm", "Mirage Deck", "Holdout", "Retention Vanish", "Sound Gimmick"];
+    const methods = [
+      "Gaff Coin", "Utility Switch", "Coin Roll", "Shim Shell", "Glue Dot", "Thread Reel", "Short Card",
+      "Marked Deck", "Flap Card", "Black Art", "Stooge", "PK Ring", "Bottom Deal", "Trapdoor", "Invisible Deck",
+      "Linked Rings", "Cups And Balls", "Stripper Deck", "Lap", "Pull", "Topit", "Coin Across",
+      "Magnetic Ring", "Card Warp", "Matrix", "Top Change", "Billet Switch", "Pass", "Z Wallet",
+      "False Shuffle", "Extra Method 100", "False Cut", "Ditch", "Corner Short", "Center Tear", "Change Bag",
+      "Classic Force", "Extra Method 99", "Magnetic Coin", "Pre-Show", "PK Touch", "Palm", "Nested Boxes",
+      "Switch", "Steal", "Coin Bend", "Flash Paper", "Double Stick Tape", "Levitation Rig", "Folded Card",
+      "Svengali Deck", "Sleight Of Hand", "Slippery Shell", "Muscle Pass", "Elastic Thread", "Egg Bag",
+      "Peek", "Nail Writer", "Miser’s Dream", "Smoke Device", "Vanish", "Index", "Magnet", "Riffle Force",
+      "Bill Switch", "Mirror Box", "Production Box", "One-Ahead", "Double Facer", "Coin Shell", "Bottom Palm",
+      "Mirage Deck", "Holdout", "Retention Vanish", "Sound Gimmick"
+    ];
 
-    const effects = ["Vanish", "Production", "Transposition", "Transformation", "Penetration", "Restoration", "Levitation", "Prediction", "Animation", "Attraction", "Sympathetic Reaction", "Invulnerability", "Physical Anomaly", "Spectator Failure", "Control", "Identification", "Thought Reading", "Thought Transmission", "ESP"];
+    const effects = [
+      "Vanish", "Production", "Transposition", "Transformation", "Penetration", "Restoration", "Levitation",
+      "Prediction", "Animation", "Attraction", "Sympathetic Reaction", "Invulnerability",
+      "Physical Anomaly", "Spectator Failure", "Control", "Identification", "Thought Reading",
+      "Thought Transmission", "ESP"
+    ];
+
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function animateResult(elementId, list) {
+      let counter = 0;
+      const element = document.getElementById(elementId);
+      const interval = setInterval(() => {
+        element.textContent = randomItem(list);
+        counter++;
+        if (counter >= 15) {
+          clearInterval(interval);
+          element.textContent = randomItem(list);
+        }
+      }, 60);
+    }
+
+    function generateTrick() {
+      animateResult("object", objects);
+      animateResult("method", methods);
+      animateResult("effect", effects);
+      startTimer();
+    }
 
     let timerInterval;
-
-    function startTimer(duration) {
-      let timer = duration;
-      const timerDisplay = document.getElementById("timer");
+    function startTimer() {
       clearInterval(timerInterval);
+      let timeLeft = 120;
+      const timerDisplay = document.getElementById("timer");
 
+      function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = String(timeLeft % 60).padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}  |  Write out whatever comes to mind!`;
+      }
+
+      updateDisplay();
       timerInterval = setInterval(() => {
-        const minutes = Math.floor(timer / 60);
-        const seconds = timer % 60;
-        timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-        if (--timer < 0) {
+        timeLeft--;
+        if (timeLeft < 0) {
           clearInterval(timerInterval);
-          timerDisplay.textContent = "Time's up!";
+          timerDisplay.textContent = "Time's up!  |  Write out whatever came to mind.";
+        } else {
+          updateDisplay();
         }
       }, 1000);
     }
 
-    function spinAndStop(id, array) {
-      let count = 0;
-      const target = document.getElementById(id);
-      const interval = setInterval(() => {
-        target.textContent = array[Math.floor(Math.random() * array.length)];
-        count++;
-        if (count >= 15) {
-          clearInterval(interval);
-          target.textContent = array[Math.floor(Math.random() * array.length)];
-        }
-      }, 75);
-    }
-
-    function generateTrick() {
-      spinAndStop("object", objects);
-      spinAndStop("method", methods);
-      spinAndStop("effect", effects);
-      startTimer(120);
+    function toggleTheme() {
+      document.body.classList.toggle('light');
     }
   </script>
 </head>
 <body>
+  <button id="themeToggle" onclick="toggleTheme()">Toggle Theme</button>
+
   <div class="container">
     <h1>The Magician’s Spark</h1>
-    <div class="byline">by Deuce Gala Magic</div>
-    <p class="description">
-      You don’t need perfect ideas, just momentum! Hit the button below to get a random object, method, and effect,
-      then let your brain play! You'll have 2 minutes to capture whatever comes out.
+    <div class="byline">by Deuce Gala</div>
+
+    <p>
+      You don’t need perfect ideas, just momentum! Hit the button below to get a random object, method, and effect, then let your brain play! You'll have 2 minutes to capture whatever comes out.
     </p>
 
     <div class="category">
@@ -146,7 +228,8 @@
     </div>
 
     <button onclick="generateTrick()">Click to Begin</button>
-    <div class="timer" id="timer"></div>
+
+    <div id="timer"></div>
   </div>
 </body>
 </html>
